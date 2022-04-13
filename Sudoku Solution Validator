@@ -1,0 +1,75 @@
+using namespace std;
+bool checkBox(unsigned int board[9][9])
+{
+  int box[9];
+  int i=0;
+  //getting array for box
+  for(int row=0;row<3;row++)
+  { 
+    for(int line=0;line<3;line++)
+    { 
+      for(int x = row*3;x<(row+1)*3;x++)
+      {
+        for(int y = line*3;y<(line+1)*3;y++)
+        {
+          box[i] = board[x][y];
+          //if box contains 0
+          if(box[i] == 0) 
+          {
+            return false;
+          }
+          else
+          {
+            //compare current number in box to all previous numbers
+            for(int x=0;x<i;x++)
+            {
+              if(box[x] == box[i])
+              {
+                return false;
+              }
+            }
+          }
+          i++;
+        }
+      }
+    i=0;
+    }
+  }
+  return true;
+}
+bool validSolution(unsigned int board[9][9])
+{
+  //get row
+  for(int x=0;x<9;x++)
+  {
+    //get line
+    for(int y=0;y<9;y++)
+    {
+      //compare the current number to all previous in the row
+      for(int i=0;i<y;i++)
+      {
+        if(board[x][y] == board[x][i])
+        {
+          return false;
+        }
+      }
+      //compare the current number to all previous in column
+      for(int i=0;i<x;i++)
+      {
+        if(board[x][y] == board[i][y])
+        {
+          return false;
+        }
+      }
+    }
+  }
+  return checkBox(board);
+}
+/*
+Sudoku Solution Validator
+Write a function validSolution/ValidateSolution/valid_solution() that accepts a 2D array representing a Sudoku board,
+and returns true if it is a valid solution, or false otherwise. The cells of the sudoku board may also contain 0's,
+which will represent empty cells. Boards containing one or more zeroes are considered to be invalid solutions.
+
+The board is always 9 cells by 9 cells, and every cell only contains integers from 0 to 9.
+*/
