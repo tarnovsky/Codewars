@@ -1,0 +1,24 @@
+int sumofmult(int num, int mod) //returns the sum of all multiples of mod less than num
+{
+  int sum = 0;
+  num -= 1;
+  int fat = num % mod;
+  num -= fat;
+  while(num > 0)
+  {
+    sum += num;
+    num -= mod;
+  }
+  return sum;
+}
+int solution(int num) 
+{
+  if(num < 4)
+  {
+    return 0;
+  }
+  else
+  {
+   return sumofmult(num,3) + sumofmult(num,5) - sumofmult(num,15);
+  }
+}
