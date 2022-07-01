@@ -1,0 +1,59 @@
+#include <string>
+using namespace std;
+
+string rot13(string msg)
+{
+    const char alphabet[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};  
+    string answer = "";
+    bool letter = false;
+    for(unsigned int x=0;x<msg.size();x++)
+    {
+        for(int i=0;i<52;i++)
+        {
+            if(msg[x]==alphabet[i]) //if character is a letter, do ROT13
+            {
+                if(i<13)
+                {
+                    cout << "trigger: " << alphabet[i+13] << endl;
+                    answer += alphabet[i+13];
+                    letter = true;
+                    break;
+                }
+                else if(i<26 || i>38)
+                {
+                    cout << "trigger: " << alphabet[i-13] << endl;
+                    answer += alphabet[i-13];
+                    letter = true;
+                    break;
+                }
+                else
+                {
+                    cout << "trigger: " << alphabet[i+13] << endl;
+                    answer += alphabet[i+13];
+                    letter = true;
+                    break;
+                }
+            }
+            
+        }
+        if(!letter) //if the character was not a letter
+        {
+            answer += msg[x]; //do not change it
+        }
+        else
+        {
+            letter = false;
+        }
+    }
+    cout << "answer: " << answer << endl;
+    return answer;
+}
+
+/*
+
+ROT13 is a simple letter substitution cipher that replaces a letter with the letter 13 letters after it in the alphabet. ROT13 is an example of the Caesar cipher.
+
+Create a function that takes a string and returns the string ciphered with Rot13. If there are numbers or special characters included in the string, 
+they should be returned as they are. Only letters from the latin/english alphabet should be shifted, like in the original Rot13 "implementation".
+
+*/
