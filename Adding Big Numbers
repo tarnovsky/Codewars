@@ -1,0 +1,66 @@
+using namespace std;
+#include <string>
+
+string add(const string& a, const string& b) 
+{
+    string num1 = a;
+    string num2 = b;
+    string num3 = "";
+    string temp;
+    bool carry = false;
+    
+    //making them the same size
+    while(num1.size()>num2.size())
+    { 
+        num2 = "0" + num2;
+    }
+    while(num2.size()>num1.size())
+    {
+        num1 = "0" + num1;
+    }
+    //combining the 2 numbers, 1 digit at a time
+    for(int i=num1.size()-1;i>-1;i--)
+    {
+        cout << (int)num1[i]+(int)num2[i]-48 << endl;
+        temp = (char)((int)num1[i]+(int)num2[i]-48);//converts both char to ascii value, adds them, and subtracts 48 before getting new char
+        if((int)temp[0] >= 57 && carry)//if it is 9 or higher and there is a carry
+        {
+            temp = (int)temp[0]-9; // descrease by 9 and keep the carry
+        }
+        else if((int)temp[0] >= 58)//else if it is 10 or higher
+        {
+            temp = (int)temp[0]-10; //descrease by 10 and add a carry
+            carry = true;
+        }
+        else if(carry) //else if it is 0-8 and there is a carry
+        {
+            temp = (int)temp[0]+1; // add 1 and remove carry
+            carry = false;
+        }
+        else //else if it is a normal number
+        {
+            carry = false; //remove the carry
+        }
+        cout << "inserting: " << temp << endl;
+        cout << "i = " << i << endl;
+        num3.insert(0,temp);
+    }
+    if(carry)//if it carries past last digit
+    {
+        num3.insert(0,"1");//add 1 to beggining
+    }
+    cout << "done" << endl;
+    return num3;
+}
+
+/*
+We need to sum big numbers and we require your help.
+
+Write a function that returns the sum of two numbers. The input numbers are strings and the function must return a string.
+
+Notes
+The input numbers are big.
+The input is a string of only digits
+The numbers are positives
+
+*/
